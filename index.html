@@ -1,0 +1,1240 @@
+ <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة تحميل التطبيق</title>
+      <!-- إضافة مكتبة أيقونات Font Awesome لأزرار التواصل الاجتماعي -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+      
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.cdnfonts.com/css/arabic" rel="stylesheet">
+          
+  
+      <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/arabic" rel="stylesheet">
+        
+          
+          
+                
+    
+    <style>
+         
+        
+        
+@import url(https://fonts.googleapis.com/earlyaccess/amiri.css);                           
+              
+        /* تنسيق الجسم والخلفية */
+    
+       
+  
+      
+ html {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Non-prefixed version, currently
+                                   supported by Chrome and Opera */
+                                   -webkit-tap-highlight-color: transparent;
+
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Amiri', serif;
+            direction:rtl;
+        }
+     
+     
+     
+     body.light-mode{
+         background:#e8e8e8;
+     }
+     
+        body {
+            
+            font-weight:600;
+            background: linear-gradient(135deg, #212121, #212121);                       
+            background-size: cover;                                                                                              
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            color: white;
+            text-align: center;
+           /* overflow: hidden;*/
+            transition: overflow 0.3s ease;    
+            
+            
+            
+   -webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;              
+            }
+        
+     
+        /* تنسيق الحاوية */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin-top:75px;
+            margin-bottom:12px;            
+            margin-right:10px;
+            margin-left:10px;
+            background-color: #212121;
+            border: 1px solid #212121;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #000, -6px -6px 12px #2f2f2f;
+            padding: 10px;
+            border-radius: 15px;
+            animation: slideIn 0s ease-out forwards;
+            opacity: 0;
+            backdrop-filter: blur(5px); /* تأثير الضبابية */
+            
+        }
+
+        /* تنسيق العنوان الرئيسي */
+        h1 {
+            font-size: 3rem;
+            font-weight:bold;
+            margin-bottom: 0px;
+            animation: fadeInDown 1.5s ease-out forwards;
+            opacity: 0;
+            background: -webkit-linear-gradient(left, red , yellow); background: -o-linear-gradient(right, #1877F2, #9C27B0); background: -moz-linear-gradient(right, #1877F2, #03A9F4); background: linear-gradient(to right, #1877F2 , #E91E63); -webkit-background-clip: text; -webkit-text-fill-color: transparent;        
+ }
+
+
+
+
+
+        /* تنسيق النص */
+        p{
+            font-size: 1.3rem;
+            margin-bottom: 20px;            
+            animation: fadeInDown 2s ease-out forwards;            
+            color:#c0c0c0;
+            opacity:0.8;
+            text-transform: capitalize;
+            
+        }
+ body.light-mode p{
+         color:#222;
+         font-weight:bold;
+  text-shadow:
+    6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
+     }        
+     
+        
+        
+        h3{
+            direction:ltr;                                             
+            font-size: 1.2rem;
+            margin-top:30px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #E91E63, #03A9F4, #9C27B0);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorChange  8s infinite;
+            
+        }
+
+
+
+
+        /* تنسيق الصور */
+.app-screenshots {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.app-screenshots img {
+    width: 30%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation: fadeInUp 2.5s ease-out forwards;
+    opacity: 0;
+    border: 1px solid #212121;
+    box-shadow: 6px 6px 12px #000, -6px -6px 12px #2f2f2f;
+}
+
+body.light-mode .app-screenshots img {
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.app-screenshots img:hover {
+    transform: scale(1.1);
+}
+
+/* نافذة التكبير */
+.popup {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.popup.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    border: 1px solid #212121;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #2f2f2f, -6px -6px 12px #2f2f2f;
+}
+
+/* تحسين زر التشغيل التلقائي */
+.popup .auto-play-btn {
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    color: #03A9F4;
+    cursor: pointer;
+    z-index: 10;
+    transition: opacity 0.3s ease;    
+}
+
+/* مؤشرات التشغيل */
+.popup .auto-play-indicator {
+    position: absolute;
+    top: 6px;
+    background-color: transparent;
+    color:#03A9F4;
+    border: none;
+    padding: 0px 10px;
+    font-size: 14px;
+    cursor: default;
+    border-radius: 10px;
+    box-shadow: 6px 6px 12px #141414, -6px -6px 12px #; /* تأثير Neomorphic */    
+    justify-content: center;
+    align-items: center;
+}
+.popup .close-btn {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    color: #03A9F4;
+    cursor: pointer;
+    z-index: 10; 
+}
+
+.popup .close-btn:hover {
+    color: #f00; /* لون التمرير */
+}
+
+
+
+/* نافذة عرض الفيديو */
+.video-popup {
+    position: fixed;
+    top: 60px; /* تحديد المسافة من أعلى الصفحة */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px); /* تعديل الارتفاع ليكون أقل من 70 بكسل */
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-popup.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.video-popup iframe {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    border: 1px solid #212121;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #2f2f2f, -6px -6px 12px #2f2f2f;
+}
+
+/* زر الإغلاق */
+.close-btn {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    color: #03A9F4;
+    cursor: pointer;
+    z-index: 10;
+    
+}
+
+ .close-btn:hover {
+    color: #f00; /* لون التمرير */
+    transform: scale(1.05); /
+}
+
+
+
+body.light-mode .close-btn{
+        
+       color:#fff;  
+     } 
+
+
+
+
+
+        /* تنسيق زر التحميل وزر الفيديو */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeInUp 2s ease-out forwards;
+            opacity: 0;
+            margin-top:30px;
+            margin-bottom:30px;            
+        }
+        
+        
+        
+span{
+    color: white; /* اللون الافتراضي */
+}
+
+body.light-mode span{
+         color:#222;
+  text-shadow:
+    6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
+     }           
+body.light-mode span:hover{
+         color:#197;
+     }       
+
+body.light-mode .download-btn{
+         background:#e8e8e8;
+         border:1px solid #e8e8e8;
+         border: 1px solid #e8e8e8;
+  box-shadow:
+    6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
+     } 
+body.light-mode .video-btn{
+         background:#e8e8e8;
+         border:1px solid #e8e8e8;
+         border: 1px solid #e8e8e8;
+  box-shadow:
+    6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
+     }      
+body.light-mode .download-btn:hover{
+        
+         box-shadow:
+    0px 0px 0px #c5c5c5,
+    0px 0px 0px #ffffff,
+    inset 4px 4px 12px #c5c5c5,
+    inset -4px -4px 12px #ffffff;
+     } 
+body.light-mode .video-btn:hover{
+         box-shadow:
+    0px 0px 0px #c5c5c5,
+    0px 0px 0px #ffffff,
+    inset 4px 4px 12px #c5c5c5,
+    inset -4px -4px 12px #ffffff;
+     }      
+          
+     
+     
+        .download-btn, .video-btn {
+            background-color: #212121;
+            font-family:'Amiri', serif;
+            padding: 10px 13px;
+            font-size: 1.2rem;
+            color: #197;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            
+            border: 1px solid #212121;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #000, -6px -6px 12px #2f2f2f;
+        }
+
+        .download-btn:hover, .video-btn:hover {
+            color: #666;
+            box-shadow: inset 4px 4px 12px #000, inset -4px -4px 12px #1f1f1f;
+            background:#212121;
+}
+
+        /* أزرار مواقع التواصل الاجتماعي */
+        .social-buttons {
+            margin-top: 20px;
+            margin-bottom:50px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            animation: fadeInUp 2.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .social-buttons a {
+            background-color: #212121;
+            border:1px solid #212121;
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 10px;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: 1px solid #212121;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #000, -6px -6px 12px #2f2f2f;
+        }
+
+body.light-mode .social-buttons a{
+        background: #e8e8e8;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  box-shadow:
+    6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
+     } 
+
+
+
+        .social-buttons a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* تنسيق قسم معلومات التطبيق */
+        .app-info {
+            background-color: #212121;
+            border: 1px solid #212121;
+            transition: all 0.3s;
+            border: 1px solid #212121;
+  transition: all 0.3s;
+  box-shadow:inset 5px 5px 9px #000,inset -5px -5px 9px #2f2f2f;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-bottom:50px;
+            animation: fadeInUp 2.5s ease-out forwards;
+            opacity: 0;
+        }
+ 
+ 
+ 
+ body.light-mode .app-info{
+         background:#e8e8e8;
+         border: 1px solid #e8e8e8;
+         box-shadow: inset -5px -5px 9px rgba(255,255,255,0.45), inset 5px 5px 9px rgba(94,104,121,0.3);
+     }        
+        
+        
+        
+        
+
+        .app-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            background: linear-gradient(to right, #E91E63, #03A9F4, #9C27B0);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorChange  8s infinite;
+        }
+
+        .app-info ul {
+            list-style: none;
+            padding: 0;
+            color:#fff;
+            opacity:75%;
+            text-transform: capitalize;
+        }
+
+body.light-mode .app-info li{
+         color:#000;
+         font-weight:900;
+         
+  
+     } 
+
+
+        .app-info li {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* تعريف الحركات */
+        @keyframes slideIn {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+    
+    
+    
+    
+    <style>
+    body.light-mode footer{
+         background:#e8e8e8;
+         border: 1px solid #e8e8e8;
+  box-shadow:
+    5px 5px 9px #c5c5c5,
+    -5px -5px 9px #ffffff;
+    color:#111;
+     } 
+     
+footer {
+    background-color: #212121; 
+    color: #c0c0c0;
+    font-size: 1rem;
+    text-align: center;
+    padding: 15px; 
+    border-radius: 6px;
+    border: 1px solid #212121;
+  transition: all 0.3s;
+  box-shadow: 5px 5px 9px #000, -5px -5px 9px #2f2f2f;
+    margin: 0px 0px; 
+    white-space:nowrap;
+}
+
+body.light-mode footer a{
+         color:#222;
+  text-shadow:
+    6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
+     }           
+
+
+footer a {
+    color: #ccc; 
+    text-decoration: none; 
+    transition: color 0.3s ease;
+    }
+
+footer a:hover {
+    color: #00bfff;
+}
+     
+    </style>
+  
+  <style>
+      
+     #site-logo {
+            width: 100px; 
+             /* عرض ثابت */
+            height: 100px; 
+            /* طول ثابت */
+        } 
+  </style>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--  -->
+  <style>
+     
+      body.light-mode .container{
+        background :#e8e8e8;
+        border:1px solid #e8e8e8;         
+        box-shadow:
+    6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;   
+        }
+        
+        /* Light Mode */
+        body.light-mode {
+            background-color: #e8e8e8;
+            color: #222;
+            
+        }
+
+        /* Header Styling */
+        .header {
+            width: 100%;
+            height: 60px;
+            background-color: #212121;
+            filter: blur(8px);
+  -webkit-filter: blur(18px);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: #fff;
+            border-radius:0px 0px 15px 15px;
+  
+  border: 1px solid #212121;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #000, -6px -6px 12px #2f2f2f;
+            position: fixed;
+            top: 0;
+            z-index: 1000;            
+        }                
+           
+
+ body.light-mode .header {
+            background-color: #e8e8e8;            
+            cursor: pointer;
+            border: 1px solid #e8e8e8;
+            
+            box-shadow: 2px 2px 4px #bebebe, -6px -6px 12px #ffffff;
+}
+        
+
+        .logo { 
+                                                                                font-family: 'Arabic', sans-serif;                                               
+            cursor: pointer;
+            font-size: 39px;
+            font-weight: bold;
+            flex: 1; 
+            text-align: center;          
+            font-weight: bold;
+            background: linear-gradient(to right, #E91E63, #03A9F4, #9C27B0);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorChange  8s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    
+    
+    
+    
+        body.light-mode .logo {    
+        font-weight: bold;
+            background: linear-gradient(to right, #E91E63, #9C27B0, #03A9F4);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorChange 8s infinite;        
+                      
+     }
+ 
+ 
+ 
+ 
+                
+        .dropdown {
+            position: relative;
+            margin-top: 10px;
+            margin-right: 0px;
+        }
+        
+        
+
+        .icon {            
+            border: none;
+            color: #c0c0c0;
+            padding: 0px;
+            font-size: 20px;
+            cursor: pointer;                       
+            outline: none;               
+        }
+        body.light-mode .icon{
+       color: #333!important;                
+       cursor: pointer;
+   
+ }
+ 
+.dark-mode-toggle{
+         color: #c0c0c0!important;   
+     }     body.light-mode .dark-mode-toggle{
+         color: #333!important;   
+     }
+       
+  
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    padding: 30px 40px;
+    white-space: nowrap;
+    top: 48px;
+    right: -10px;
+    background-color: #212121;
+    border-radius: 10px;
+    box-shadow: 8px 8px 15px #000, -8px -8px 15px #1f1f1f;
+    overflow: hidden;
+    z-index: 1;
+    
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-content {
+  display: none;
+  opacity: 0;
+  animation: fadeInDown 0.4s ease-out;
+  animation-fill-mode: forwards; /* Ensure it stays visible after the animation */
+}
+
+
+
+
+
+
+body.light-mode .dropdown-content {
+   	background-color: #e8e8e8;
+            color: #222;
+            box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #bebebe;
+            }
+
+
+body.light-mode .dropdown-content span{  	        color: #555;
+        font-weight:bold;
+            }
+            
+.dropdown-content.active {
+    display: block;
+}
+
+.dropdown-content a {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: flex-start;
+    padding: 10px 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.dropdown-content i {
+    margin-right: 10px;
+     /* اترك مسافة بين الأيقونة والنص */
+    font-size: 18px;
+   background:        
+        linear-gradient(135deg, #9C27B0, #03A9F4, #E91E63);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    
+}
+
+    
+.dropdown-content a:hover {
+    background-color: #1a1a1a;
+    border-radius:13px; 
+/* Slightly darker hover effect */
+}
+body.light-mode .dropdown-content a:hover {
+    background-color: #ccc;
+    border-radius:13px; 
+/* Slightly darker hover effect */
+}
+
+
+
+
+.dropdown-content a i {
+    margin-right: 10px; /* Adjust margin for icons */
+    font-size: 18px; /* Ensure icons are appropriately sized */
+}
+
+      .dropdown-content span{
+            margin-right: 10px;
+         }
+       .dropdown-content .mail {
+            margin-bottom:8px;
+        }
+        
+        
+        .dropdown-content .logout {            
+            border: 1px solid #212121;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #000, -6px -6px 12px #2f2f2f;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+            border-radius:15px;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px; 
+            padding: 8px auto; 
+            margin: 10px auto; 
+       
+        }
+ .dropdown-content .logout:hover {
+         background:#212121;
+         box-shadow: inset 4px 4px 12px #000, inset -4px -4px 12px #1f1f1f;
+        }
+        
+        
+ body.light-mode .logout{
+            background: #e8e8e8;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+        }
+     
+body.light-mode .logout:hover{
+color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+
+        
+}     
+    </style>
+    
+    
+    
+    
+    <style>
+
+   
+
+        
+    </style>
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+    <!-- Header with Logo, Profile Icon, and Dark Mode Toggle -->
+    <div class="header">
+    	
+    <div class="dropdown">
+        <div class="icon" onclick="toggleDropdown(event)">
+  <i class="fas fa-bars" style="font-size:21px;"></i>
+        </div>      
+      <div class="dropdown-content" id="settingsMenu">
+    <a href="//t.me/DailyMatch_App" target="_blank"><i class="fab fa-telegram"></i> <span> تابعنا على تلغرام </span></a>
+    <a href="//www.facebook.com/share/Zrs81ZiFtk8ZsS47/" target="_blank"><i class="fab fa-facebook-square"></i> <span> صفحتنا فيسبوك</span></a>
+     <a href="//www.tiktok.com/@dailymatchapp" target="_blank"><i class="fab fa-tiktok"></i> <span>حسابنا على تيكتوك </span></a>
+      <a href="mailto:dailymatchapk@gmail.com?subject=موضوع الرسالة&body=مرحبا فريق الدعم لتطبيق ديلي ماتش"  target="_blank" class="mail"><i class="fas fa-envelope"></i> <span> لمراسلتنا </span></a>     
+           
+     <a onclick="location.href='//www.mediafire.com/file/evu0domxttqottb/Daily_Match_5.1.apk/file'" class="logout">
+         <span> تحميل التطبيق</span>   <i class="fas fa-download"></i>
+        </a>  
+        
+       
+ </div>
+ 
+ 
+         </div>
+  
+<!-- Right Icon -->
+
+<div class="logo">Daily Match</div>   <!-- center logo -->    
+            
+<div class="dark-mode-toggle" style="font-size:21px;">
+  <i class="fas fa-moon"  id="darkModeToggle"></i></div>
+<!-- Left  Icon -->
+                      </div>
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="container">
+        <h1> Daily Match </h1>
+   
+        <p>
+          تطبيق ديلي ماتش <br> 
+يتيح لك مشاهدة قنوات بي إن سبورت وجميع قنوات الرياضة مجانًا 
+ بجودة عالية وضعيفة بدون اشتراكات
+            </p>
+
+
+        <!-- أزرار تحميل وعرض الفيديو -->
+        <div class="buttons" dir="ltr">
+<button onclick="location.href='//www.mediafire.com/file/evu0domxttqottb/Daily_Match_5.1.apk/file'" type="button" class="download-btn" style="color:#eee"  id="download-btn"><span>تحميل التطبيق </span><i class="fa fa-download" style="color:#197" ></i> </button>
+
+<button class="video-btn" style="color:#eee"  id="video-btn"> <span>عرض فيديو </span><i class="fa fa-play-circle" style="color:#1877F2" ></i></button>
+        </div>
+
+
+     
+        <!-- معرض صور التطبيق -->
+          <h3>: صور من التطبيق </h3>
+        <div class="app-screenshots">
+            <img src="https://i.postimg.cc/jSNmnyBk/Screenshot-20241015-160156.jpg" alt="Screenshot 1" class="thumbnail">
+            <img src="https://i.postimg.cc/xCs4V5bq/Screenshot-20241015-160235.jpg" alt="Screenshot 2" class="thumbnail">
+            <img src="https://i.postimg.cc/Y9ybsSJW/Screenshot-20241015-162203.jpg" alt="Screenshot 3" class="thumbnail">
+        </div>
+
+
+
+    
+        <!-- قسم معلومات التطبيق -->
+        <div class="app-info">
+            <h3>: معلومات التطبيق</h3>
+            <ul>
+                <li>الإصدار: 5.1.0</li>
+                <li>حجم التطبيق: 28  ميجابايت</li>
+                <li>متوافق مع أجهزة أندرويد </li>
+                <li>تم التحديث في: 07 أكتوبر 2024</li>
+            </ul>
+        </div>
+        
+        
+          
+            <!-- زر مشاركة التطبيق -->
+            <h3> : تابعنا على مواقع التواصل </h3>
+        <div class="social-buttons">
+              
+            <a href="https://www.tiktok.com/@dailymatchapk?_t=8qMUKGxHrGg&_r=1" target="_blank" class="fa-brands fa-tiktok" style="background-color:#222"></a>
+            <a href="https://t.me/DailyMatch_Apk" alt="telegram" target="_blank" class="fab fa-telegram" style="background-color:#0088cc"></a>
+            <a href="https://www.facebook.com/share/PMbWdC7t9yj5wSCj/" alt="facebook" target="_blank" class="fab fa-facebook" style="background-color:#1877F2"></a>
+    
+            <a href="mailto:dailymatchapk@gmail.com?subject=موضوع الرسالة&body=مرحبا فريق الدعم لتطبيق ديلي ماتش" alt="Gmail" target="_blank" class="fas fa-envelope" style="background-color:#242a30"></a>
+    
+        </div>
+        
+        
+        
+        
+        
+       <!-- Footer نيوومورفي -->
+ <footer>
+    &copy; 2024 جميع الحقوق محفوظة | <a href="#">Daily Match</a>
+</footer>
+
+    </div>
+    
+    
+    
+    
+
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- نافذة التكبير -->
+   
+    
+
+<div class="popup">
+     <button class="close-btn"><i class="fa fa-times-circle"></i></button>
+  <img src="" alt="Expanded Image">
+  <button class="auto-play-btn">  <i class="fa fa-play-circle"></i></button>
+  <div class="auto-play-indicator">Autoplay: Off</div>
+</div>
+
+    <!-- نافذة عرض الفيديو -->
+    <div class="video-popup" id="video-popup">
+        <button class="close-btn" id="close-video-btn"><i class="fa fa-times-circle"></i></button>
+        
+        <iframe src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    
+    
+    
+
+    <script>
+        // الحصول على العناصر
+        const downloadBtn = document.getElementById('download-btn');
+        const videoBtn = document.getElementById('video-btn');
+        const body = document.body;
+
+        // عند النقر على زر التحميل
+        
+        downloadBtn.addEventListener('click', function () {
+    downloadBtn.innerHTML = '<i class="fas fa-check-circle"></i> تم بدء التحميل'; // إضافة أيقونة
+    downloadBtn.style.color = 'green'; // تغيير لون النص
+    body.style.overflow = 'auto'; 
+});
+        
+        
+
+        // عند النقر على زر عرض الفيديو
+        videoBtn.addEventListener('click', function () {
+            const videoPopup = document.getElementById('video-popup');
+            const iframe = videoPopup.querySelector('iframe');
+            iframe.src = 'https://www.youtube.com/embed/5JAKo2MpPkg?si=zw5-9VHI-yxUWdrC'; // استبدل YOUR_VIDEO_ID برابط الفيديو التوضيحي
+            videoPopup.classList.add('active');
+        });
+
+        // إغلاق نافذة الفيديو عند النقر على زر الإغلاق
+        document.getElementById('close-video-btn').addEventListener('click', function () {
+            const videoPopup = document.getElementById('video-popup');
+            const iframe = videoPopup.querySelector('iframe');
+            iframe.src = ''; // إزالة الرابط لإيقاف الفيديو
+            videoPopup.classList.remove('active');
+        });
+
+        // الحصول على العناصر الخاصة بالصورة المصغرة
+        
+    </script>
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <!-- header script  -->
+ 
+      
+    
+    
+
+
+
+<script>
+      // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            darkModeToggle.classList.toggle('fa-sun'); // Change icon to sun for light mode
+        });
+    
+    
+    function toggleDropdown(event) {
+        event.stopPropagation(); // Prevent the event from bubbling up
+        const menu = document.getElementById("settingsMenu");
+        // Toggle visibility without delay
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    // Close the dropdown if clicked outside
+    window.onclick = function(event) {
+        const dropdownMenu = document.getElementById("settingsMenu");
+        if (dropdownMenu.style.display === "block" && !event.target.closest('.dropdown')) {
+            dropdownMenu.style.display = "none";
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+<script>
+    
+</script>
+   
+
+
+
+
+
+<script>
+  const images = document.querySelectorAll('.app-screenshots img');
+const popup = document.querySelector('.popup');
+const popupImage = popup.querySelector('img');
+const autoPlayBtn = document.querySelector('.auto-play-btn');
+const autoPlayIndicator = document.querySelector('.auto-play-indicator');
+
+let currentIndex = 0;
+let autoPlayInterval;
+let isAutoPlaying = false;
+
+// Show popup when clicking on an image
+images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+        currentIndex = index;
+        showImage();
+        popup.classList.add('active');
+    });
+});
+
+// Show the image in popup
+function showImage() {
+    popupImage.src = images[currentIndex].src;
+}
+
+// Close popup by clicking outside of the image
+popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+        popup.classList.remove('active');
+        stopAutoPlay(); // Stop autoplay if active
+    }
+});
+
+// Start/Stop the slideshow
+autoPlayBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent click from closing the popup
+    if (isAutoPlaying) {
+        stopAutoPlay();
+    } else {
+        startAutoPlay();
+    }
+});
+
+function startAutoPlay() {
+    isAutoPlaying = true;
+    popup.classList.add('auto-playing');
+    autoPlayBtn.innerHTML = '<i class="fas fa-pause-circle"></i>'; // تغيير الأيقونة إلى pause
+    autoPlayIndicator.textContent = 'Autoplay: On';
+    autoPlayInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage();
+    }, 6000); // تغيير الصورة كل ثانيتين
+}
+
+function stopAutoPlay() {
+    isAutoPlaying = false;
+    popup.classList.remove('auto-playing');
+    autoPlayBtn.innerHTML = '<i class="fas fa-play-circle"></i>'; // تغيير الأيقونة إلى play
+    autoPlayIndicator.textContent = 'Autoplay: Off';
+    clearInterval(autoPlayInterval);
+}
+
+
+
+// Handle swipe left/right to navigate through images
+let startX;
+
+popupImage.addEventListener('mousedown', (e) => {
+    startX = e.pageX; // Get the initial X position
+});
+
+popupImage.addEventListener('mouseup', (e) => {
+    const endX = e.pageX; // Get the final X position
+    if (startX > endX + 50) {
+        // Swipe left
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage();
+    } else if (startX < endX - 50) {
+        // Swipe right
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage();
+    }
+});
+
+// For touch devices
+popupImage.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX; // Get the initial X position
+});
+
+popupImage.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].clientX; // Get the final X position
+    if (startX > endX + 50) {
+        // Swipe left
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage();
+    } else if (startX < endX - 50) {
+        // Swipe right
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage();
+    }
+});
+
+
+
+const closeBtn = document.querySelector('.close-btn');
+
+closeBtn.addEventListener('click', () => {
+    popup.classList.remove('active');
+    stopAutoPlay(); // لإيقاف العرض التلقائي عند غلق النافذة
+});
+
+
+</script>
+ 
+</body>
+</html>
