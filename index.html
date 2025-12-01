@@ -982,7 +982,7 @@ color: #666;
         
        <!-- Footer نيوومورفي -->
  <footer>
-    &copy; 2024 جميع الحقوق محفوظة | <a href="#">Daily Match</a>
+    &copy; <span id="currentYear"></span> جميع الحقوق محفوظة | <a href="#">Daily Match</a>
 </footer>
 
     </div>
@@ -1235,6 +1235,12 @@ closeBtn.addEventListener('click', () => {
 
 
 </script>
- 
+ <script>
+    // الحصول على السنة الحالية
+    var year = new Date().getFullYear();
+
+    // العثور على العنصر بالمعرّف "currentYear" وتحديث محتواه
+    document.getElementById("currentYear").textContent = year;
+</script>
 </body>
 </html>
