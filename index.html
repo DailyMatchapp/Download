@@ -85,9 +85,9 @@ user-select: none;
      
         /* تنسيق الحاوية */
         .container {
-            max-width: 800px;
+            max-width: 1080px;
             width: 100%;
-            margin-top:75px;
+            margin-top:80px;
             margin-bottom:12px;          
             margin-right:10px;
             margin-left:10px;
@@ -262,13 +262,13 @@ body.light-mode .app-screenshots img {
 
 
 /* نافذة عرض الفيديو */
-.video-popup {
+.video-popup { z-index:998;
     position: fixed;
     top: 0px; /* تحديد المسافة من أعلى الصفحة */
     left: 0;
     width: 100%;
     height: 100% ; /* تعديل الارتفاع ليكون أقل من 70 بكسل */
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
