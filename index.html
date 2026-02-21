@@ -10,7 +10,7 @@
             --bg-body: #121212;
             --bg-card: #1e1e1e;
             --bg-header: #2d2d2d;
-            --primary: #ffc107; /* أصفر رياضي */
+            --primary: #e50914;
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --border-color: #333;
@@ -31,15 +31,15 @@
             margin: 0 auto;
         }
 
-        /* الأزرار */
+        /* أزرار التنقل */
         .date-nav {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             background: var(--bg-card);
             padding: 8px;
-            border-radius: 12px;
+            border-radius: 50px;
             border: 1px solid var(--border-color);
         }
 
@@ -47,21 +47,27 @@
             background: transparent;
             border: none;
             color: var(--text-muted);
-            padding: 8px 20px;
+            padding: 10px 20px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 25px;
             flex: 1;
             transition: all 0.3s ease;
         }
 
         .nav-btn.active {
             background: var(--primary);
-            color: #000;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
         }
 
-        /* البطولات */
+        .nav-btn:hover:not(.active) {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+
+        /* تصميم البطولات */
         .league-group {
             margin-bottom: 20px;
             border-radius: 12px;
@@ -71,8 +77,8 @@
         }
 
         .league-header {
-            background: linear-gradient(90deg, #2d2d2d, #1e1e1e);
-            padding: 10px 15px;
+            background: var(--bg-header);
+            padding: 12px 15px;
             display: flex;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
@@ -81,17 +87,21 @@
         .league-title {
             font-size: 14px;
             font-weight: 700;
-            color: var(--primary);
+            color: #fff;
+            border-right: 3px solid var(--primary);
+            padding-right: 10px;
         }
 
-        /* المباريات */
+        /* كرت المباراة */
         .match-item {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 15px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: relative;
         }
+
         .match-item:last-child { border-bottom: none; }
 
         .teams-container {
@@ -107,12 +117,12 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 5px;
+            gap: 8px;
         }
 
         .team img {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             object-fit: contain;
         }
 
@@ -131,17 +141,16 @@
         }
 
         .match-time {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
-            background: #333;
-            padding: 5px 15px;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 12px;
             border-radius: 6px;
-            min-width: 80px;
-            text-align: center;
+            color: var(--primary);
         }
 
-        .match-score {
-            font-size: 24px;
+        .score-box {
+            font-size: 22px;
             font-weight: 800;
             letter-spacing: 2px;
         }
@@ -152,24 +161,29 @@
             color: var(--text-muted);
         }
 
-        .channel-badge {
+        .channel-info {
             position: absolute;
             top: 5px;
-            right: 10px;
+            left: 10px; /* تم التعديل لليسار ليتناسب مع العربية */
             font-size: 10px;
-            background: rgba(0,0,0,0.5);
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.4);
             padding: 2px 6px;
             border-radius: 4px;
-            color: #ddd;
         }
 
-        .loading { text-align: center; padding: 40px; color: var(--text-muted); }
-        
-        /* للجوال */
+        .loading, .error, .no-matches {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border-radius: 12px;
+        }
+
         @media (max-width: 480px) {
-            .team img { width: 35px; height: 35px; }
-            .match-time { font-size: 16px; padding: 4px 10px; }
-            .match-score { font-size: 20px; }
+            .match-item { flex-direction: column; padding: 10px; }
+            .teams-container { margin-top: 15px; }
+            .channel-info { top: 0; left: 0; width: 100%; text-align: center; border-radius: 0; background: rgba(255,255,255,0.05); }
         }
     </style>
 </head>
@@ -177,126 +191,157 @@
 
 <div class="container">
     <div class="date-nav">
-        <button class="nav-btn" onclick="fetchMatches(-1)" id="btn-prev">الأمس</button>
-        <button class="nav-btn active" onclick="fetchMatches(0)" id="btn-today">اليوم</button>
-        <button class="nav-btn" onclick="fetchMatches(1)" id="btn-next">الغد</button>
+        <button class="nav-btn" onclick="updateDate(-1)" id="btn-prev">الأمس</button>
+        <button class="nav-btn active" onclick="updateDate(0)" id="btn-today">اليوم</button>
+        <button class="nav-btn" onclick="updateDate(1)" id="btn-next">الغد</button>
     </div>
 
-    <div id="matches-container">
-        <!-- المباريات ستظهر هنا -->
+    <div id="matches-wrapper">
+        <div class="loading">جاري تحميل جدول المباريات...</div>
     </div>
 </div>
 
 <script>
-    let currentDateOffset = 0;
+    const API_BASE = "https://auziatv.com/matches_api.php";
+    let currentOffset = 0;
 
-    // دالة تنسيق التاريخ
-    function getDate(offset) {
+    function getDateString(offset) {
         const d = new Date();
         d.setDate(d.getDate() + offset);
-        return d.toISOString().split('T')[0];
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 
-    // الدالة الرئيسية لجلب البيانات
-    async function fetchMatches(offset) {
-        currentDateOffset = offset;
-        
-        // تحديث الأزرار
+    function updateDate(offset) {
+        currentOffset = offset;
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
         if(offset === -1) document.getElementById('btn-prev').classList.add('active');
         if(offset === 0) document.getElementById('btn-today').classList.add('active');
         if(offset === 1) document.getElementById('btn-next').classList.add('active');
-
-        const container = document.getElementById('matches-container');
-        container.innerHTML = '<div class="loading">جاري جلب الجدول...</div>';
-
-        const dateStr = getDate(offset);
         
-        // *مهم*: هنا نطلب البيانات من الملف الذي أنشأته أنت
-        const apiUrl = `proxy.php?date=${dateStr}`;
+        getMatches();
+    }
+
+    async function getMatches() {
+        const wrapper = document.getElementById('matches-wrapper');
+        wrapper.innerHTML = '<div class="loading">جاري جلب البيانات...</div>';
+        
+        const dateStr = getDateString(currentOffset);
+        
+        // استخدام CodeTabs Proxy (هو الأقوى حالياً للحالات المستعصية)
+        const targetUrl = `${API_BASE}?date=${dateStr}`;
+        const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`;
 
         try {
-            const response = await fetch(apiUrl);
-            if(!response.ok) throw new Error("خطأ في السيرفر");
+            const response = await fetch(proxyUrl);
+            
+            if (!response.ok) throw new Error("فشل الاتصال بالمصدر");
             
             const data = await response.json();
-            render(data);
+            renderMatches(data);
+
         } catch (error) {
-            container.innerHTML = `<div class="loading" style="color:red">فشل جلب البيانات. تأكد من وجود ملف proxy.php في نفس المجلد.</div>`;
             console.error(error);
+            wrapper.innerHTML = `
+                <div class="error">
+                    عذراً، لم نتمكن من جلب المباريات.<br>
+                    <small>السبب: المصدر يحظر الاتصال الخارجي أو يوجد ضغط على السيرفر.</small>
+                    <br><br>
+                    <button class="nav-btn active" onclick="getMatches()">حاول مرة أخرى</button>
+                </div>
+            `;
         }
     }
 
-    function render(data) {
-        const container = document.getElementById('matches-container');
-        container.innerHTML = '';
+    function renderMatches(data) {
+        const wrapper = document.getElementById('matches-wrapper');
+        wrapper.innerHTML = '';
 
         if (!data || !data.matches || data.matches.length === 0) {
-            container.innerHTML = '<div class="loading">لا توجد مباريات لهذا اليوم</div>';
+            wrapper.innerHTML = '<div class="no-matches">لا توجد مباريات مسجلة لهذا اليوم.</div>';
             return;
         }
 
-        // تجميع حسب الدوري
+        // تجميع المباريات حسب الدوري
         const grouped = {};
-        data.matches.forEach(m => {
-            const league = m.league || 'مباريات ودية';
-            if(!grouped[league]) grouped[league] = [];
-            grouped[league].push(m);
+        data.matches.forEach(match => {
+            const league = match.league || "مباريات ودية";
+            if (!grouped[league]) grouped[league] = [];
+            grouped[league].push(match);
         });
 
-        for (const [leagueName, matches] of Object.entries(grouped)) {
-            const groupDiv = document.createElement('div');
-            groupDiv.className = 'league-group';
+        for (const [league, matches] of Object.entries(grouped)) {
+            const section = document.createElement('div');
+            section.className = 'league-group';
 
-            let content = `<div class="league-header"><span class="league-title">🏆 ${leagueName}</span></div>`;
-
+            let matchesHtml = '';
             matches.forEach(m => {
+                // استخراج البيانات
+                const homeName = m.home;
+                const awayName = m.away;
+                const homeLogo = m.homeLogo;
+                const awayLogo = m.awayLogo;
                 const time = m.time ? m.time.slice(0, 5) : '--:--';
-                const isFinished = m.status === 'STATUS_FINISHED' || m.status === 'FT';
-                const isLive = !isFinished && m.status !== 'STATUS_SCHEDULED';
-                
-                // تحديد ما يتم عرضه في الوسط (وقت أو نتيجة)
-                let centerHtml = '';
-                if(isFinished || isLive) {
-                    centerHtml = `
-                        <div class="match-score" style="color:${isLive ? 'var(--live-color)' : '#fff'}">
-                            ${m.awayScore} - ${m.homeScore}
-                        </div>
-                        <div class="match-status">${isLive ? 'جارية الآن' : 'انتهت'}</div>
-                    `;
+                const status = m.status; // STATUS_SCHEDULED, STATUS_FINISHED, etc
+                const homeScore = m.homeScore;
+                const awayScore = m.awayScore;
+                const channel = m.src || 'غير محدد'; // المصدر كقناة
+
+                // منطق العرض (وقت أو نتيجة)
+                let centerContent = '';
+                let statusText = '';
+                let isLive = false;
+
+                if (status === 'STATUS_SCHEDULED') {
+                    centerContent = `<div class="match-time">${time}</div>`;
+                    statusText = 'لم تبدأ';
+                } else if (status === 'STATUS_FINISHED' || status === 'FT') {
+                    centerContent = `<div class="score-box">${awayScore} - ${homeScore}</div>`;
+                    statusText = 'انتهت';
                 } else {
-                    centerHtml = `
-                        <div class="match-time">${time}</div>
-                        <div class="match-status">لم تبدأ</div>
-                    `;
+                    // جارية حالياً
+                    isLive = true;
+                    centerContent = `<div class="score-box" style="color:var(--live-color)">${awayScore} - ${homeScore}</div>`;
+                    statusText = '<span style="color:var(--live-color); font-weight:bold;">● جارية الآن</span>';
                 }
 
-                content += `
-                <div class="match-item">
-                    ${m.src ? `<span class="channel-badge">📺 ${m.src}</span>` : ''}
-                    <div class="teams-container">
-                        <div class="team">
-                            <img src="${m.homeLogo}" onerror="this.src='https://via.placeholder.com/45'">
-                            <span class="team-name">${m.home}</span>
-                        </div>
-                        <div class="match-center">
-                            ${centerHtml}
-                        </div>
-                        <div class="team">
-                            <img src="${m.awayLogo}" onerror="this.src='https://via.placeholder.com/45'">
-                            <span class="team-name">${m.away}</span>
+                matchesHtml += `
+                    <div class="match-item">
+                        <div class="channel-info">📺 ${channel}</div>
+                        <div class="teams-container">
+                            <div class="team">
+                                <img src="${homeLogo}" onerror="this.src='https://via.placeholder.com/40?text=⚽'">
+                                <span class="team-name">${homeName}</span>
+                            </div>
+
+                            <div class="match-center">
+                                ${centerContent}
+                                <div class="match-status">${statusText}</div>
+                            </div>
+
+                            <div class="team">
+                                <img src="${awayLogo}" onerror="this.src='https://via.placeholder.com/40?text=⚽'">
+                                <span class="team-name">${awayName}</span>
+                            </div>
                         </div>
                     </div>
-                </div>`;
+                `;
             });
 
-            groupDiv.innerHTML = content;
-            container.appendChild(groupDiv);
+            section.innerHTML = `
+                <div class="league-header">
+                    <span class="league-title">${league}</span>
+                </div>
+                ${matchesHtml}
+            `;
+            wrapper.appendChild(section);
         }
     }
 
-    // تشغيل عند البدء
-    fetchMatches(0);
+    // التشغيل التلقائي
+    window.onload = getMatches;
 </script>
 
 </body>
