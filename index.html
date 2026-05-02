@@ -201,10 +201,11 @@
 <body>
 
 <div class="container">
-    <div class="date-nav">
-       
-        <button class="nav-btn active" onclick="updateDate(0)" id="btn-today">اليوم</button>
-    </div>
+  <div class="date-nav">
+    <button class="nav-btn" onclick="updateDate(-1)" id="btn-prev">الأمس</button>
+    <button class="nav-btn active" onclick="updateDate(0)" id="btn-today">اليوم</button>
+    <button class="nav-btn" onclick="updateDate(1)" id="btn-next">الغد</button>
+</div>
 
     <div id="matches-wrapper">
         <div class="loading">جاري تحميل جدول المباريات...</div>
@@ -224,15 +225,20 @@
         return `${year}-${month}-${day}`;
     }
 
-    function updateDate(offset) {
-        currentOffset = offset;
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        if(offset === -1) document.getElementById('btn-prev').classList.add('active');
-        if(offset === 0) document.getElementById('btn-today').classList.add('active');
-        if(offset === 1) document.getElementById('btn-next').classList.add('active');
-        
-        getMatches();
-    }
+   function updateDate(offset) {
+    currentOffset = offset;
+    
+    // إزالة حالة "النشاط" من جميع الأزرار
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // تحديد الزر المناسب بناءً على قيمة offset
+    if(offset === -1) document.getElementById('btn-prev').classList.add('active');
+    if(offset === 0) document.getElementById('btn-today').classList.add('active');
+    if(offset === 1) document.getElementById('btn-next').classList.add('active');
+    
+    // جلب البيانات للتاريخ الجديد
+    getMatches();
+}
 
     async function getMatches() {
         const wrapper = document.getElementById('matches-wrapper');
