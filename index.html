@@ -38,28 +38,81 @@
             scroll-behavior: smooth;
         }
 
+       /* الهيدر المطور */
         header {
             width: 100%;
-            padding: 5px 0;
+            padding: 10px 0;
             background: var(--surface-color);
             box-shadow: 0 4px 30px rgba(0,0,0,0.5);
-            text-align: center;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center; /* لتوسيط المحتوى الداخلي */
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between; /* توزيع المحتوى يمين ويسار */
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .site-icon {
+            width: 50px;
+            height: 50px; 
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px var(--accent-color));
         }
 
         .logo-text {
             font-family: 'Satisfy', cursive;
-            font-size: 3rem;
+            font-size: 2.2rem; /* تم تصغير الخط قليلاً ليتناسب مع الهيدر الجديد */
             font-weight: 400;
             background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
-            transform: rotate(-3deg);
+            transform: rotate(-1deg);
             letter-spacing: 1px;
-            filter: drop-shadow(2px 4px 8px rgba(46, 204, 113, 0.3));
             cursor: pointer;
         }
+
+        .header-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-social a {
+            width: 35px;
+            height: 35px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: var(--neo-shadow-out);
+            font-size: 1.1rem;
+        }
+
+        .header-social a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            color: #000;
+        }
+
+      
+      
+      
+       
 
         /* العناوين */
         .section-header {
@@ -297,6 +350,13 @@
         .net-offline { background: #e74c3c; color: white; }
         .net-online { background: #2ecc71; color: white; }
 
+      
+       .skeleton { background: linear-gradient(90deg, #1d2020 25%, #2a2e2e 50%, #1d2020 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite linear; border-radius: 5px; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .sk-logo { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; }
+        .sk-text { width: 60%; height: 10px; margin: 10px auto; }
+      
+      
         /* تحسينات الشاشات الصغيرة */
         @media (max-width: 768px) {
             .logo-text { font-size: 2.2rem; }
@@ -308,12 +368,13 @@
             .matches-wrapper { padding: 10px 15px; }
             #refresh-overlay { opacity: 1; top: 25px; right: 25px; }
             .btn-refresh { padding: 6px 12px; font-size: 10px; }
+            .logo-text { font-size: 1.6rem; }
+            .site-icon { width: 45px; height: 45px; }
+            .header-social { gap: 8px; }
+            .header-social a { width: 30px; height: 30px; font-size: 0.9rem; }
         }
 
-        .skeleton { background: linear-gradient(90deg, #1d2020 25%, #2a2e2e 50%, #1d2020 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite linear; border-radius: 5px; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .sk-logo { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; }
-        .sk-text { width: 60%; height: 10px; margin: 10px auto; }
+       
     </style>
 </head>
 <body>
@@ -321,7 +382,20 @@
 <div id="net-status"></div>
 
 <header>
-    <div class="logo-text">Daily Match</div>
+    <div class="header-container">
+        <!-- جهة اليسار: الأيقونة والاسم -->
+        <div class="logo-area">
+            <img src="https://i.ibb.co/1GRBRNf1/7d73dd9f-0bc9-4f4c-bade-e65782854de4-removalai-preview.png" alt="Daily Match Icon" class="site-icon">
+            <div class="logo-text">live Match</div>
+        </div>
+
+        <!-- جهة اليمين: أيقونات التواصل الاجتماعي -->
+        <div class="header-social">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-telegram'></i></a>
+            <a href="#"><i class='bx bxl-youtube'></i></a>
+        </div>
+    </div>
 </header>
 
 <!-- عنوان قسم المباريات -->
@@ -358,7 +432,7 @@
 <!-- تنبيه القنوات -->
 <div class="stream-notice">
     <i class='bx bxs-info-circle' style="font-size: 1.4rem;"></i>
-    <p><b>Note:</b> Some streaming channels may remain offline until 5-10 minutes before the official match kickoff. Please refresh if the stream doesn't load.</p>
+    <p><b>Note:</b> Streams go live 5-10 mins before kickoff. Please Refresh if not loading.</p>
 </div>
 
 <!-- الفوتر المتطور -->
