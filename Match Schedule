@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Schedule - Live Matches</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Satisfy&family=Poppins:wght@300;400;600;800&display=swap');
+        
+        :root { 
+            --bg-color: #0f1111; 
+            --surface-color: #1b1e1e; 
+            --accent-color: #2ecc71; 
+            --text-main: #ffffff; 
+            --text-dim: #9ca3af; 
+            --neo-shadow-out: 8px 8px 16px #080909, -4px -4px 12px #1c2121; 
+            --neo-shadow-in: inset 4px 4px 8px #080909, inset -4px -4px 8px #1c2121;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; background-color: var(--bg-color); 
+            color: var(--text-main); margin: 0; display: flex; flex-direction: column; 
+            align-items: center; min-height: 100vh;
+        }
+        
+        header { 
+            width: 100%; padding: 12px 0; background: var(--surface-color); 
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5); display: flex; justify-content: center; 
+        }
+
+        .header-container { width: 92%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { 
+            font-family: 'Satisfy', cursive; font-size: 1.8rem; 
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+
+        .container { width: 95%; max-width: 700px; margin: 20px 0; }
+        .back-btn { 
+            display: inline-flex; align-items: center; gap: 5px; color: var(--accent-color); 
+            text-decoration: none; font-weight: 600; margin-bottom: 20px; font-size: 0.85rem;
+        }
+
+        .schedule-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .match-card { 
+            background: var(--surface-color); padding: 15px 10px; border-radius: 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            box-shadow: var(--neo-shadow-out); border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .team-box { width: 35%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .team-box img { 
+            width: 42px; height: 42px; object-fit: contain; 
+            filter: drop-shadow(0 4px 5px rgba(0,0,0,0.5));
+        }
+        .team-name { 
+            font-size: 0.7rem; font-weight: 600; text-align: center; color: var(--text-main);
+            overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+        }
+
+        .match-center { width: 30%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .score-badge { 
+            background: var(--bg-color); padding: 5px 12px; border-radius: 10px; 
+            color: var(--accent-color); font-weight: 800; font-size: 1rem; 
+            box-shadow: var(--neo-shadow-in); margin-bottom: 4px;
+        }
+        .time-text { font-size: 0.85rem; font-weight: 700; color: var(--text-dim); }
+        .league-name { font-size: 0.6rem; color: var(--accent-color); text-transform: uppercase; margin-bottom: 8px; text-align: center; opacity: 0.8; }
+
+        #loading { text-align: center; padding: 50px; color: var(--accent-color); }
+        .spinner { font-size: 2rem; animation: spin 1s infinite linear; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        @media (max-width: 400px) {
+            .team-box img { width: 35px; height: 35px; }
+            .team-name { font-size: 0.65rem; }
+            .score-badge { font-size: 0.9rem; padding: 4px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="index.html" style="text-decoration: none;"><div class="logo-text">Live Matches</div></a>
+        <div style="display: flex; gap: 10px; color: var(--text-dim);">
+            <i class='bx bxl-telegram'></i> <i class='bx bxl-youtube'></i>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <a href="index.html" class="back-btn"><i class='bx bx-left-arrow-alt'></i> Back Home</a>
+    <div id="loading"><div class="spinner"><i class='bx bx-loader-alt'></i></div><p>Filtering Schedule (+1h)...</p></div>
+    <div class="schedule-list" id="schedule-list"></div>
+</div>
+
+<script>
+    const API_URL = "https://kora-api.space/api/matches/2026-05-11?t=55";
+    
+    // الروابط المطلوبة
+    const TEAM_IMG_URL = 'https://ws.kora-api.top/uploads/team/';
+    const LEAGUE_IMG_URL = 'https://ws.kora-api.top/uploads/league/';
+    
+    // تصفية الدوريات المحظورة
+    const blockedLeagues = [/NBA/i, /Formula 1/i, /NFL/i, /MotoGP/i];
+
+    const listContainer = document.getElementById('schedule-list');
+    const loadingDiv = document.getElementById('loading');
+
+    function addOneHour(timeStr) {
+        if (!timeStr) return "--:--";
+        let [hours, minutes] = timeStr.split(':').map(Number);
+        hours = (hours + 1) % 24;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    }
+
+    async function fetchMatches() {
+        try {
+            const response = await fetch(API_URL);
+            const matches = await response.json();
+            
+            loadingDiv.style.display = 'none';
+
+            if (Array.isArray(matches) && matches.length > 0) {
+                // تصفية البيانات قبل العرض
+                const filteredMatches = matches.filter(match => {
+                    return !blockedLeagues.some(regex => regex.test(match.league_en));
+                });
+                renderMatches(filteredMatches);
+            } else {
+                listContainer.innerHTML = "<p style='text-align:center; color:var(--text-dim);'>No football matches today.</p>";
+            }
+        } catch (error) {
+            loadingDiv.innerHTML = "<p style='color:#ff4757;'>Fetch Error.</p>";
+        }
+    }
+
+    function renderMatches(matches) {
+        listContainer.innerHTML = "";
+        matches.forEach(match => {
+            const card = document.createElement('div');
+            card.className = 'match-card';
+
+            const localTime = addOneHour(match.time);
+            const currentScore = (match.score && match.score !== "-") ? match.score : "VS";
+            
+            // استخدام TEAM_IMG_URL للصور
+            const homeLogo = match.home_logo ? TEAM_IMG_URL + match.home_logo : 'https://cdn-icons-png.flaticon.com/512/53/53283.png';
+            const awayLogo = match.away_logo ? TEAM_IMG_URL + match.away_logo : 'https://cdn-icons-png.flaticon.com/512/53/53283.png';
+
+            card.innerHTML = `
+                <div class="team-box">
+                    <img src="${homeLogo}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/53/53283.png'">
+                    <span class="team-name">${match.home_en}</span>
+                </div>
+                <div class="match-center">
+                    <div class="league-name">${match.league_en}</div>
+                    <div class="score-badge">${currentScore}</div>
+                    <div class="time-text">${localTime}</div>
+                </div>
+                <div class="team-box">
+                    <img src="${awayLogo}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/53/53283.png'">
+                    <span class="team-name">${match.away_en}</span>
+                </div>
+            `;
+            listContainer.appendChild(card);
+        });
+    }
+
+    fetchMatches();
+</script>
+
+</body>
+</html>
