@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support - Live Matches</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Satisfy&family=Poppins:wght@300;400;600;800&display=swap');
+        :root { --bg-color: #0f1111; --surface-color: #1b1e1e; --accent-color: #2ecc71; --text-main: #ffffff; --text-dim: #9ca3af; --neo-shadow-out: 8px 8px 16px #080909, -4px -4px 12px #1c2121; --neo-shadow-in: inset 4px 4px 8px #080909, inset -4px -4px 8px #1c2121;}
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; display: flex; flex-direction: column; align-items: center; }
+        
+        header { width: 100%; padding: 10px 0; background: var(--surface-color); box-shadow: 0 4px 30px rgba(0,0,0,0.5); display: flex; justify-content: center; }
+        .header-container { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .logo-text { font-family: 'Satisfy', cursive; font-size: 2.1rem; background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .site-icon { width: 40px; height: 40px; filter: drop-shadow(0 0 5px var(--accent-color)); }
+        .header-social { display: flex; gap: 12px; }
+        .header-social a { width: 35px; height: 35px; background: var(--bg-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; box-shadow: var(--neo-shadow-out); }
+
+        .container { width: 90%; max-width: 600px; margin: 40px 0; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-color); text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+
+        .form-card { background: var(--surface-color); padding: 40px; border-radius: 25px; box-shadow: var(--neo-shadow-out); }
+        h1 { color: var(--accent-color); margin-bottom: 30px; }
+        
+        .input-group { margin-bottom: 20px; width: 100%;}
+        label { display: block; margin-bottom: 8px; color: var(--text-dim); font-size: 0.9rem; }
+        input, textarea { width: 100%; padding: 15px; background: var(--bg-color); border: none; border-radius: 12px; box-shadow: var(--neo-shadow-in); color: white; outline: none; font-family: 'Poppins'; box-sizing: border-box; }
+        
+        .submit-btn { width: 100%; padding: 15px; background: var(--accent-color); border: none; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .submit-btn:hover { transform: scale(0.98); box-shadow: 0 0 20px rgba(46, 204, 113, 0.4); }
+
+        footer { width: 100%; background: var(--surface-color); padding: 40px 0 20px; border-top: 1px solid rgba(46, 204, 113, 0.2); margin-top: auto; text-align: center; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo-area">
+            <img src="https://i.ibb.co/HT5QFWfW/e6175819-3c44-482f-bcad-6cbd60a0adc8-removalai-preview.png" class="site-icon">
+            <div class="logo-text">Live Matches</div>
+        </a>
+        <div class="header-social">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-telegram'></i></a>
+            <a href="#"><i class='bx bxl-youtube'></i></a>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <a href="index.html" class="back-btn"><i class='bx bx-left-arrow-alt'></i> Back to Home</a>
+    <div class="form-card">
+        <h1>Contact Support</h1>
+        <div class="input-group">
+            <label>Name</label>
+            <input type="text" placeholder="Enter your name">
+        </div>
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" placeholder="example@mail.com">
+        </div>
+        <div class="input-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="How can we help you?"></textarea>
+        </div>
+        <button class="submit-btn">SEND MESSAGE</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-bottom">&copy; 2026 Live Matches - All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>
