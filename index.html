@@ -526,7 +526,12 @@
         container.innerHTML = "";
         matches.forEach((m, i) => {
             const dateObj = new Date(m.begin_at);
-            const time24 = dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+            dateObj.setHours(dateObj.getHours() - 1); 
+            const time24 = dateObj.toLocaleTimeString('en-GB', { 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    timeZone: 'Africa/Algiers' // هذا يضمن عرض الوقت بتوقيت شمال أفريقيا (GMT+1)
+});
             const categoryName = m.category?.name || "Sports";
             const fallbackLogo = getFallbackLogo(categoryName);
             const parts = m.name.split(/ vs | @ | - /);
